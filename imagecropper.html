@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to crop and compress images. Optimize your images for web with adjustable compression levels.">
+    <meta name="keywords" content="image crop, image compression, photo editor, online tool, web optimization">
+    <title>ImageCrop Pro | Free Online Image Cropping & Compression Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #6c757d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .ad-banner {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            margin: 1rem auto;
+            max-width: 728px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-style: italic;
+            box-shadow: var(--shadow);
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                grid-template-columns: 1fr 300px;
+            }
+        }
+        
+        .tool-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .tool-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tool-content {
+            padding: 1.5rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--accent);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            background: rgba(72, 149, 239, 0.05);
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: rgba(72, 149, 239, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .preview-container {
+            display: none;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            background: #f8f8f8;
+        }
+        
+        .crop-overlay {
+            position: absolute;
+            border: 2px dashed white;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            cursor: move;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .control-group {
+            background: #f8f9fa;
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #e9ecef;
+        }
+        
+        h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .slider-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slider-label span:first-child {
+            font-weight: 600;
+        }
+        
+        .slider-value {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+        
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        button.secondary:hover {
+            background: #f0f5ff;
+        }
+        
+        .result-container {
+            background: #e8f4fe;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .result-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-box {
+            background: white;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .info-box .value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .ad-box {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+        }
+        
+        .ad-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+        
+        .features {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .features h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .feature-icon {
+            color: var(--success);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        footer {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 2rem 1.5rem 0;
+            text-align: center;
+            color: var(--gray);
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-ad {
+            max-width: 728px;
+            height: 90px;
+            background: white;
+            border-radius: var(--border-radius);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-style: italic;
+            box-shadow: var(--shadow);
+        }
+        
+        .loader {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(67, 97, 238, 0.2);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .file-info {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: #f0f8ff;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-crop-alt"></i> ImageCrop Pro</h1>
+            <p class="subtitle">Free online tool to crop and compress images. Optimize your images for web with adjustable compression levels.</p>
+        </div>
+        <div class="ad-banner">
+            <div class="ad-label">Advertisement</div>
+            <p>Google AdSense Banner (728x90)</p>
+            <!-- Insert AdSense code here -->
+            <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script> -->
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <div class="tool-container">
+                <div class="tool-header">
+                    <i class="fas fa-sliders-h"></i>
+                    <h2>Image Cropping Tool</h2>
+                </div>
+                <div class="tool-content">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Upload an Image</h3>
+                        <p>Drag & drop your image here or click to browse</p>
+                        <p class="small">Supported formats: JPG, PNG, GIF (Max 5MB)</p>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <strong>Selected file:</strong> <span id="fileName"></span> (<span id="fileSize"></span>)
+                    </div>
+                    
+                    <div class="preview-container" id="previewContainer">
+                        <canvas id="imageCanvas"></canvas>
+                        <div class="crop-overlay" id="cropOverlay"></div>
+                    </div>
+                    
+                    <div class="loader" id="loader"></div>
+                    
+                    <div class="controls">
+                        <div class="control-group">
+                            <h3><i class="fas fa-crop-alt"></i> Crop Settings</h3>
+                            <div class="slider-container">
+                                <div class="slider-label">
+                                    <span>Crop Area Size</span>
+                                    <span class="slider-value" id="cropSizeValue">80%</span>
+                                </div>
+                                <input type="range" id="cropSize" min="20" max="100" value="80">
+                            </div>
+                            <p>Drag the cropping box to select the area you want to keep.</p>
+                        </div>
+                        
+                        <div class="control-group">
+                            <h3><i class="fas fa-compress-arrows-alt"></i> Compression</h3>
+                            <div class="slider-container">
+                                <div class="slider-label">
+                                    <span>Compression Level</span>
+                                    <span class="slider-value" id="compressionValue">80%</span>
+                                </div>
+                                <input type="range" id="compressionLevel" min="10" max="100" value="80">
+                            </div>
+                            <p>Higher compression = smaller file size but lower quality.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button id="cropBtn" class="secondary"><i class="fas fa-cut"></i> Crop Image</button>
+                        <button id="downloadBtn"><i class="fas fa-download"></i> Download Result</button>
+                        <button id="resetBtn" class="secondary"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
+                    
+                    <div class="result-container" id="resultContainer">
+                        <h3><i class="fas fa-chart-line"></i> Optimization Results</h3>
+                        <div class="result-info">
+                            <div class="info-box">
+                                <div>Original Size</div>
+                                <div class="value" id="originalSize">0 KB</div>
+                            </div>
+                            <div class="info-box">
+                                <div>Compressed Size</div>
+                                <div class="value" id="compressedSize">0 KB</div>
+                            </div>
+                            <div class="info-box">
+                                <div>Savings</div>
+                                <div class="value" id="savings">0%</div>
+                            </div>
+                        </div>
+                        <div class="preview-container">
+                            <canvas id="resultCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="ad-box">
+                <div class="ad-label">Advertisement</div>
+                <i class="ad-icon fas fa-ad"></i>
+                <p>Google AdSense Rectangle (300x250)</p>
+                <!-- Insert AdSense code here -->
+            </div>
+            
+            <div class="features">
+                <h3><i class="fas fa-star"></i> Why Choose Our Tool?</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <strong>100% Free</strong>
+                            <p>No registration or payment required</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <strong>Browser-Based</strong>
+                            <p>No software to install, works on any device</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <strong>Privacy Focused</strong>
+                            <p>Your images are processed in browser, never uploaded</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <strong>SEO Optimized</strong>
+                            <p>Compressed images improve page load times</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ad-box">
+                <div class="ad-label">Advertisement</div>
+                <i class="ad-icon fas fa-ad"></i>
+                <p>Google AdSense Rectangle (300x250)</p>
+                <!-- Insert AdSense code here -->
+            </div>
+        </aside>
+    </div>
+    
+    <div class="footer-ad">
+        <div class="ad-label">Advertisement</div>
+        <p>Google AdSense Banner (728x90)</p>
+        <!-- Insert AdSense code here -->
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 ImageCrop Pro - Free Online Image Cropping and Compression Tool</p>
+        <p>All image processing happens in your browser - your files are never uploaded to any server.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const uploadArea = document.getElementById('uploadArea');
+            const imageInput = document.getElementById('imageInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const cropOverlay = document.getElementById('cropOverlay');
+            const imageCanvas = document.getElementById('imageCanvas');
+            const resultCanvas = document.getElementById('resultCanvas');
+            const cropBtn = document.getElementById('cropBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const cropSizeSlider = document.getElementById('cropSize');
+            const cropSizeValue = document.getElementById('cropSizeValue');
+            const compressionSlider = document.getElementById('compressionLevel');
+            const compressionValue = document.getElementById('compressionValue');
+            const originalSize = document.getElementById('originalSize');
+            const compressedSize = document.getElementById('compressedSize');
+            const savings = document.getElementById('savings');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const fileInfo = document.getElementById('fileInfo');
+            const loader = document.getElementById('loader');
+            
+            // Canvas contexts
+            const ctx = imageCanvas.getContext('2d');
+            const resultCtx = resultCanvas.getContext('2d');
+            
+            // Variables
+            let originalImage = null;
+            let isDragging = false;
+            let startX, startY;
+            let cropX = 0, cropY = 0, cropWidth = 0, cropHeight = 0;
+            let originalFileSize = 0;
+            
+            // Event listeners
+            uploadArea.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+            cropBtn.addEventListener('click', processImage);
+            downloadBtn.addEventListener('click', downloadImage);
+            resetBtn.addEventListener('click', resetTool);
+            
+            cropSizeSlider.addEventListener('input', updateCropSize);
+            compressionSlider.addEventListener('input', updateCompressionValue);
+            
+            // Initialize values
+            updateCropSize();
+            updateCompressionValue();
+            
+            // Functions
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (!file || !file.type.match('image.*')) return;
+                
+                // Show file info
+                fileName.textContent = file.name;
+                originalFileSize = file.size;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.style.display = 'block';
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    originalImage = new Image();
+                    originalImage.onload = function() {
+                        setupCanvas();
+                        drawImage();
+                        initCropOverlay();
+                        previewContainer.style.display = 'block';
+                    };
+                    originalImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function setupCanvas() {
+                const maxWidth = Math.min(originalImage.width, 700);
+                const ratio = maxWidth / originalImage.width;
+                const height = originalImage.height * ratio;
+                
+                imageCanvas.width = maxWidth;
+                imageCanvas.height = height;
+                resultCanvas.width = maxWidth;
+                resultCanvas.height = height;
+            }
+            
+            function drawImage() {
+                ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+                ctx.drawImage(originalImage, 0, 0, imageCanvas.width, imageCanvas.height);
+            }
+            
+            function initCropOverlay() {
+                // Set initial crop area to 80% of the canvas
+                cropWidth = imageCanvas.width * 0.8;
+                cropHeight = imageCanvas.height * 0.8;
+                cropX = (imageCanvas.width - cropWidth) / 2;
+                cropY = (imageCanvas.height - cropHeight) / 2;
+                
+                updateCropOverlay();
+                
+                // Event listeners for dragging
+                cropOverlay.addEventListener('mousedown', startDrag);
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', stopDrag);
+                
+                cropOverlay.addEventListener('touchstart', startDrag);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('touchend', stopDrag);
+            }
+            
+            function startDrag(e) {
+                isDragging = true;
+                const rect = imageCanvas.getBoundingClientRect();
+                const clientX = e.clientX || e.touches[0].clientX;
+                const clientY = e.clientY || e.touches[0].clientY;
+                
+                startX = clientX - rect.left;
+                startY = clientY - rect.top;
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const rect = imageCanvas.getBoundingClientRect();
+                const clientX = e.clientX || e.touches[0].clientX;
+                const clientY = e.clientY || e.touches[0].clientY;
+                
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                
+                const dx = x - startX;
+                const dy = y - startY;
+                
+                cropX = Math.max(0, Math.min(imageCanvas.width - cropWidth, cropX + dx));
+                cropY = Math.max(0, Math.min(imageCanvas.height - cropHeight, cropY + dy));
+                
+                startX = x;
+                startY = y;
+                
+                updateCropOverlay();
+            }
+            
+            function stopDrag() {
+                isDragging = false;
+            }
+            
+            function updateCropOverlay() {
+                cropOverlay.style.width = cropWidth + 'px';
+                cropOverlay.style.height = cropHeight + 'px';
+                cropOverlay.style.left = cropX + 'px';
+                cropOverlay.style.top = cropY + 'px';
+            }
+            
+            function updateCropSize() {
+                const value = cropSizeSlider.value;
+                cropSizeValue.textContent = value + '%';
+                
+                if (originalImage) {
+                    cropWidth = imageCanvas.width * (value / 100);
+                    cropHeight = imageCanvas.height * (value / 100);
+                    
+                    // Keep crop area centered
+                    cropX = (imageCanvas.width - cropWidth) / 2;
+                    cropY = (imageCanvas.height - cropHeight) / 2;
+                    
+                    updateCropOverlay();
+                }
+            }
+            
+            function updateCompressionValue() {
+                const value = compressionSlider.value;
+                compressionValue.textContent = value + '%';
+            }
+            
+            function processImage() {
+                if (!originalImage) return;
+                
+                // Show loader
+                loader.style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                // Simulate processing time
+                setTimeout(() => {
+                    // Clear result canvas
+                    resultCtx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+                    
+                    // Draw cropped image
+                    resultCtx.drawImage(
+                        originalImage,
+                        cropX * (originalImage.width / imageCanvas.width),
+                        cropY * (originalImage.height / imageCanvas.height),
+                        cropWidth * (originalImage.width / imageCanvas.width),
+                        cropHeight * (originalImage.height / imageCanvas.height),
+                        0, 0, resultCanvas.width, resultCanvas.height
+                    );
+                    
+                    // Get compressed image data
+                    const compressionLevel = compressionSlider.value / 100;
+                    const dataUrl = resultCanvas.toDataURL('image/jpeg', compressionLevel);
+                    
+                    // Calculate file size
+                    const compressedFileSize = Math.round((dataUrl.length * 3) / 4);
+                    const savingsPercent = Math.round((1 - compressedFileSize / originalFileSize) * 100);
+                    
+                    // Update result UI
+                    originalSize.textContent = formatFileSize(originalFileSize);
+                    compressedSize.textContent = formatFileSize(compressedFileSize);
+                    savings.textContent = savingsPercent + '%';
+                    
+                    // Hide loader and show results
+                    loader.style.display = 'none';
+                    resultContainer.style.display = 'block';
+                    
+                    // Store data URL for download
+                    resultCanvas.dataset.downloadUrl = dataUrl;
+                }, 800);
+            }
+            
+            function downloadImage() {
+                if (!resultCanvas.dataset.downloadUrl) return;
+                
+                const link = document.createElement('a');
+                link.download = 'cropped-image.jpg';
+                link.href = resultCanvas.dataset.downloadUrl;
+                link.click();
+            }
+            
+            function resetTool() {
+                imageInput.value = '';
+                previewContainer.style.display = 'none';
+                resultContainer.style.display = 'none';
+                fileInfo.style.display = 'none';
+                originalImage = null;
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' bytes';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                else return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+        });
+    </script>
+</body>
+</html>
