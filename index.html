@@ -277,6 +277,8 @@
             border-bottom: 1px solid #eee;
             transition: var(--transition);
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
         
         .tool-item:last-child {
@@ -285,6 +287,7 @@
         
         .tool-item:hover {
             background: #f9f9f9;
+            transform: translateX(5px);
         }
         
         .tool-item i {
@@ -297,6 +300,46 @@
             border-radius: 50%;
             color: var(--primary);
             margin-right: 15px;
+        }
+        
+        /* Featured Tool Section */
+        .featured-tool {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            margin: 50px 0;
+        }
+        
+        .featured-tool-content {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .featured-tool-image {
+            flex: 1;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .featured-tool-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .tool-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
         }
         
         /* Features Section */
@@ -440,6 +483,10 @@
             .tool-categories {
                 flex-direction: column;
             }
+            
+            .featured-tool {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 768px) {
@@ -555,41 +602,41 @@
                         <h3>Image Tools</h3>
                     </div>
                     <div class="tools-list">
-                        <div class="tool-item">
+                        <a href="img.compress.html" class="tool-item">
                             <i class="fas fa-compress-alt"></i>
                             <div>
                                 <h4>Image Compressor</h4>
                                 <p>Reduce file size without losing quality</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-crop"></i>
                             <div>
                                 <h4>Image Cropper</h4>
                                 <p>Crop images to any dimension</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-sync"></i>
                             <div>
                                 <h4>Image Converter</h4>
                                 <p>Convert between JPG, PNG, GIF, etc.</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-expand"></i>
                             <div>
                                 <h4>Image Resizer</h4>
                                 <p>Resize images while maintaining aspect ratio</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-magic"></i>
                             <div>
                                 <h4>Background Remover</h4>
                                 <p>Remove image backgrounds automatically</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 
@@ -600,42 +647,64 @@
                         <h3>PDF Tools</h3>
                     </div>
                     <div class="tools-list">
-                        <div class="tool-item">
+                        <a href="#" class="tool-item">
                             <i class="fas fa-lock"></i>
                             <div>
                                 <h4>PDF Protector</h4>
                                 <p>Add password protection to PDFs</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-unlock"></i>
                             <div>
                                 <h4>PDF Unlocker</h4>
                                 <p>Remove passwords from PDFs</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-compress-arrows-alt"></i>
                             <div>
                                 <h4>PDF Compressor</h4>
                                 <p>Reduce PDF file size</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-merge"></i>
                             <div>
                                 <h4>PDF Merger</h4>
                                 <p>Combine multiple PDFs into one</p>
                             </div>
-                        </div>
-                        <div class="tool-item">
+                        </a>
+                        <a href="#" class="tool-item">
                             <i class="fas fa-file-word"></i>
                             <div>
                                 <h4>PDF to Word</h4>
                                 <p>Convert PDFs to editable Word documents</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Featured Tool Section -->
+            <div class="featured-tool">
+                <div class="featured-tool-content">
+                    <span class="tool-badge">Featured Tool</span>
+                    <h2>Advanced Image Compressor</h2>
+                    <p>Our powerful image compression tool allows you to reduce file sizes by up to 90% while maintaining visual quality. Perfect for web optimization, email attachments, and storage savings.</p>
+                    <div style="margin: 30px 0;">
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Batch processing for multiple images</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Adjustable compression levels</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Support for JPG, PNG, and WebP formats</li>
+                        </ul>
+                    </div>
+                    <a href="img.compress.html" class="btn btn-primary">
+                        <i class="fas fa-compress-alt"></i> Use Image Compressor Now
+                    </a>
+                </div>
+                <div class="featured-tool-image">
+                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=600&q=80" alt="Image Compression Tool Preview">
                 </div>
             </div>
             
@@ -712,7 +781,7 @@
                 <div class="footer-column">
                     <h3>Image Tools</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Compress Image</a></li>
+                        <li><a href="img.compress.html"><i class="fas fa-caret-right"></i> Compress Image</a></li>
                         <li><a href="#"><i class="fas fa-caret-right"></i> Crop Image</a></li>
                         <li><a href="#"><i class="fas fa-caret-right"></i> Resize Image</a></li>
                         <li><a href="#"><i class="fas fa-caret-right"></i> Convert Image</a></li>
