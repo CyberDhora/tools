@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolKit Pro - Online Image & PDF Tools</title>
+    <title>ToolKit Pro - Complete Online Tools Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4361ee;
             --secondary: #3f37c9;
             --accent: #4895ef;
-            --light: #f8f9fa;
-            --dark: #212529;
             --success: #4cc9f0;
             --warning: #f72585;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --light: #f8f9fa;
+            --dark: #212529;
+            --dark-bg: #1a1c23;
+            --card-bg: #2a2d37;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             --transition: all 0.3s ease;
         }
         
@@ -26,9 +28,10 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
+            background: linear-gradient(135deg, #1a1c23 0%, #252830 100%);
+            color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -39,18 +42,19 @@
         
         /* Header Styles */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(26, 28, 35, 0.95);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
         
         .logo {
@@ -59,12 +63,19 @@
             gap: 10px;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--light);
             text-decoration: none;
         }
         
         .logo i {
-            color: var(--warning);
+            color: var(--accent);
+        }
+        
+        .logo span {
+            background: linear-gradient(to right, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         nav ul {
@@ -75,11 +86,12 @@
         
         nav a {
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
+            color: var(--light);
+            font-weight: 500;
             transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 1.1rem;
         }
         
         nav a:hover, nav a.active {
@@ -103,6 +115,7 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+            font-size: 1rem;
         }
         
         .btn-primary {
@@ -119,20 +132,20 @@
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
         
         .mobile-menu {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--light);
         }
         
         /* Hero Section */
         .hero {
-            padding: 80px 0;
+            padding: 100px 0 80px;
             text-align: center;
-            background: linear-gradient(to right, rgba(67, 97, 238, 0.1), rgba(72, 149, 239, 0.1));
             position: relative;
             overflow: hidden;
         }
@@ -140,23 +153,23 @@
         .hero::before {
             content: "";
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 400px;
+            height: 400px;
             border-radius: 50%;
-            background: rgba(76, 201, 240, 0.1);
-            top: -100px;
-            left: -100px;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.15) 0%, transparent 70%);
+            top: -150px;
+            left: -150px;
         }
         
         .hero::after {
             content: "";
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            background: rgba(247, 37, 133, 0.1);
-            bottom: -150px;
-            right: -150px;
+            background: radial-gradient(circle, rgba(247, 37, 133, 0.15) 0%, transparent 70%);
+            bottom: -250px;
+            right: -250px;
         }
         
         .hero-content {
@@ -169,18 +182,21 @@
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
-            color: var(--dark);
+            color: var(--light);
             line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
         .hero h1 span {
-            color: var(--primary);
-            position: relative;
+            background: linear-gradient(to right, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .hero p {
             font-size: 1.2rem;
-            color: #555;
+            color: #bbb;
             margin-bottom: 30px;
             max-width: 600px;
             margin-left: auto;
@@ -192,6 +208,7 @@
             justify-content: center;
             gap: 15px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
         
         /* Tools Section */
@@ -206,7 +223,7 @@
         
         .section-header h2 {
             font-size: 2.5rem;
-            color: var(--dark);
+            color: var(--light);
             margin-bottom: 15px;
             position: relative;
             display: inline-block;
@@ -225,45 +242,48 @@
         }
         
         .section-header p {
-            color: #666;
+            color: #aaa;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 20px auto 0;
         }
         
         .tool-categories {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
         }
         
         .category-card {
-            flex: 1;
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         
         .category-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(67, 97, 238, 0.3);
         }
         
         .category-header {
             padding: 25px;
             text-align: center;
             background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
         }
         
         .category-header i {
             font-size: 2.5rem;
             margin-bottom: 15px;
+            color: white;
         }
         
         .category-header h3 {
             font-size: 1.8rem;
+            color: white;
         }
         
         .tools-list {
@@ -274,78 +294,128 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            border-bottom: 1px solid #eee;
+            border-radius: 10px;
             transition: var(--transition);
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.03);
         }
         
         .tool-item:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
         
         .tool-item:hover {
-            background: #f9f9f9;
+            background: rgba(67, 97, 238, 0.15);
             transform: translateX(5px);
         }
         
         .tool-item i {
-            width: 40px;
-            height: 40px;
-            background: rgba(67, 97, 238, 0.1);
+            width: 45px;
+            height: 45px;
+            background: rgba(67, 97, 238, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            color: var(--primary);
+            color: var(--accent);
             margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .tool-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .tool-info p {
+            color: #aaa;
+            font-size: 0.9rem;
         }
         
         /* Featured Tool Section */
         .featured-tool {
-            background: white;
+            background: linear-gradient(135deg, #252830, #2a2d37);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
             display: flex;
             margin: 50px 0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
         
         .featured-tool-content {
             flex: 1;
             padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .featured-tool-image {
             flex: 1;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 30px;
         }
         
         .featured-tool-image img {
             max-width: 100%;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
         .tool-badge {
             display: inline-block;
             background: var(--warning);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 30px;
             font-size: 0.9rem;
+            margin-bottom: 20px;
+            align-self: flex-start;
+        }
+        
+        .featured-tool-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .featured-tool-content p {
+            color: #bbb;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list li {
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+        
+        .feature-list i {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
         
         /* Features Section */
         .features {
             padding: 80px 0;
-            background: linear-gradient(to right, rgba(67, 97, 238, 0.05), rgba(72, 149, 239, 0.05));
+            background: linear-gradient(to right, rgba(26, 28, 35, 0.7), rgba(42, 45, 55, 0.7));
         }
         
         .features-grid {
@@ -355,23 +425,25 @@
         }
         
         .feature-card {
-            background: white;
-            padding: 30px;
+            background: var(--card-bg);
+            padding: 35px 30px;
             border-radius: 15px;
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(72, 149, 239, 0.3);
         }
         
         .feature-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, var(--primary), var(--accent));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -383,14 +455,20 @@
         
         .feature-card h3 {
             margin-bottom: 15px;
-            color: var(--dark);
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.7;
         }
         
         /* Footer */
         footer {
-            background: var(--dark);
-            color: white;
+            background: var(--dark-bg);
             padding: 60px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .footer-grid {
@@ -405,6 +483,7 @@
             margin-bottom: 25px;
             position: relative;
             padding-bottom: 10px;
+            color: var(--light);
         }
         
         .footer-column h3::after {
@@ -435,12 +514,13 @@
         }
         
         .footer-links a:hover {
-            color: white;
+            color: var(--accent);
             transform: translateX(5px);
         }
         
         .footer-links a i {
             color: var(--accent);
+            font-size: 0.9rem;
         }
         
         .social-links {
@@ -453,11 +533,11 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #333;
+            background: var(--card-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--light);
             transition: var(--transition);
         }
         
@@ -466,12 +546,169 @@
             transform: translateY(-5px);
         }
         
+        .footer-column p {
+            color: #999;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            background: rgba(255,255,255,0.07);
+            color: var(--light);
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--accent);
+        }
+        
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #333;
-            color: #bbb;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #777;
             font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #bbb;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--light);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--accent);
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .modal-footer {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+        
+        .modal-footer p {
+            color: #aaa;
+            margin-top: 15px;
+        }
+        
+        .modal-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember-me input {
+            width: auto;
+        }
+        
+        .forgot-password {
+            color: var(--accent);
+            text-decoration: none;
         }
         
         /* Responsive Styles */
@@ -480,12 +717,12 @@
                 font-size: 2.8rem;
             }
             
-            .tool-categories {
+            .featured-tool {
                 flex-direction: column;
             }
             
-            .featured-tool {
-                flex-direction: column;
+            .featured-tool-image {
+                padding: 40px;
             }
         }
         
@@ -500,7 +737,7 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: white;
+                background: var(--dark-bg);
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: var(--shadow);
@@ -518,6 +755,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .tool-categories {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -532,6 +773,98 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: var(--success);
+            color: white;
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* User Menu */
+        .user-menu {
+            position: relative;
+            display: none;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 200px;
+            overflow: hidden;
+            display: none;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .user-dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .user-dropdown a:hover {
+            background: rgba(67, 97, 238, 0.15);
+            color: var(--light);
+        }
+        
+        .user-dropdown a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .user-menu.active .user-dropdown {
+            display: block;
+        }
+        
+        /* Dashboard Link */
+        .dashboard-link {
+            text-align: center;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -551,17 +884,27 @@
                     </div>
                     <ul>
                         <li><a href="#" class="active">Home</a></li>
-                        <li><a href="#">Image Tools</a></li>
-                        <li><a href="#">PDF Tools</a></li>
-                        <li><a href="#">All Tools</a></li>
+                        <li><a href="#tools">Image Tools</a></li>
+                        <li><a href="#tools">PDF Tools</a></li>
+                        <li><a href="#tools">All Tools</a></li>
+                        <li><a href="#features">Features</a></li>
                         <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Contact</a></li>
                     </ul>
                 </nav>
                 
                 <div class="header-actions">
-                    <a href="#" class="btn btn-outline">Login</a>
-                    <a href="#" class="btn btn-primary">Sign Up</a>
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                
+                <div class="user-menu" id="userMenu">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-dropdown">
+                        <a href="#"><i class="fas fa-user-circle"></i> Profile</a>
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#"><i class="fas fa-history"></i> History</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -575,10 +918,10 @@
                 <p>Transform your images and PDFs with our comprehensive suite of free online tools. No installation required!</p>
                 
                 <div class="hero-btns">
-                    <a href="#" class="btn btn-primary">
+                    <a href="#tools" class="btn btn-primary">
                         <i class="fas fa-image"></i> Explore Image Tools
                     </a>
-                    <a href="#" class="btn btn-primary">
+                    <a href="#tools" class="btn btn-primary">
                         <i class="fas fa-file-pdf"></i> Explore PDF Tools
                     </a>
                 </div>
@@ -587,7 +930,7 @@
     </section>
     
     <!-- Tools Section -->
-    <section class="tools-section">
+    <section class="tools-section" id="tools">
         <div class="container">
             <div class="section-header">
                 <h2>Our Powerful Tools</h2>
@@ -604,35 +947,35 @@
                     <div class="tools-list">
                         <a href="img.compress.html" class="tool-item">
                             <i class="fas fa-compress-alt"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>Image Compressor</h4>
                                 <p>Reduce file size without losing quality</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-crop"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>Image Cropper</h4>
                                 <p>Crop images to any dimension</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-sync"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>Image Converter</h4>
                                 <p>Convert between JPG, PNG, GIF, etc.</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-expand"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>Image Resizer</h4>
                                 <p>Resize images while maintaining aspect ratio</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-magic"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>Background Remover</h4>
                                 <p>Remove image backgrounds automatically</p>
                             </div>
@@ -649,35 +992,35 @@
                     <div class="tools-list">
                         <a href="#" class="tool-item">
                             <i class="fas fa-lock"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>PDF Protector</h4>
                                 <p>Add password protection to PDFs</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-unlock"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>PDF Unlocker</h4>
                                 <p>Remove passwords from PDFs</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-compress-arrows-alt"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>PDF Compressor</h4>
                                 <p>Reduce PDF file size</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-merge"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>PDF Merger</h4>
                                 <p>Combine multiple PDFs into one</p>
                             </div>
                         </a>
                         <a href="#" class="tool-item">
                             <i class="fas fa-file-word"></i>
-                            <div>
+                            <div class="tool-info">
                                 <h4>PDF to Word</h4>
                                 <p>Convert PDFs to editable Word documents</p>
                             </div>
@@ -692,13 +1035,15 @@
                     <span class="tool-badge">Featured Tool</span>
                     <h2>Advanced Image Compressor</h2>
                     <p>Our powerful image compression tool allows you to reduce file sizes by up to 90% while maintaining visual quality. Perfect for web optimization, email attachments, and storage savings.</p>
-                    <div style="margin: 30px 0;">
-                        <ul style="list-style: none;">
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Batch processing for multiple images</li>
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Adjustable compression levels</li>
-                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #4cc9f0; margin-right: 10px;"></i> Support for JPG, PNG, and WebP formats</li>
-                        </ul>
-                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Batch processing for multiple images</li>
+                        <li><i class="fas fa-check-circle"></i> Adjustable compression levels</li>
+                        <li><i class="fas fa-check-circle"></i> Support for JPG, PNG, and WebP formats</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time preview before download</li>
+                        <li><i class="fas fa-check-circle"></i> Preserve EXIF data and metadata</li>
+                    </ul>
+                    
                     <a href="img.compress.html" class="btn btn-primary">
                         <i class="fas fa-compress-alt"></i> Use Image Compressor Now
                     </a>
@@ -708,16 +1053,16 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="#" class="btn btn-primary">
-                    <i class="fas fa-tools"></i> View All Tools
+            <div class="dashboard-link">
+                <a href="#" class="btn btn-outline" id="dashboardBtn">
+                    <i class="fas fa-tachometer-alt"></i> Go to Dashboard
                 </a>
             </div>
         </div>
     </section>
     
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
             <div class="section-header">
                 <h2>Why Choose Our Tools</h2>
@@ -801,14 +1146,12 @@
                 </div>
                 
                 <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> All Tools</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Pricing</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Blog</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Contact Us</a></li>
-                    </ul>
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates and new tool announcements.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
             
@@ -818,14 +1161,277 @@
         </div>
     </footer>
     
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to Your Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="submitLogin" style="width: 100%;">Login</button>
+                <p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create an Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="submitSignup" style="width: 100%;">Create Account</button>
+                <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">Login successful! Welcome back.</div>
+    
     <script>
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const submitLogin = document.getElementById('submitLogin');
+        const submitSignup = document.getElementById('submitSignup');
+        const notification = document.getElementById('notification');
+        const userMenu = document.getElementById('userMenu');
+        const userAvatar = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const dashboardBtn = document.getElementById('dashboardBtn');
+        
         // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('nav ul').classList.toggle('show');
         });
         
+        // Modal Functions
+        function openModal(modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Event Listeners
+        loginBtn.addEventListener('click', () => openModal(loginModal));
+        signupBtn.addEventListener('click', () => openModal(signupModal));
+        
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                closeModal(modal);
+            });
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target);
+            }
+        });
+        
+        switchToSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal(loginModal);
+            openModal(signupModal);
+        });
+        
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal(signupModal);
+            openModal(loginModal);
+        });
+        
+        // Login Functionality
+        submitLogin.addEventListener('click', function() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if(email && password) {
+                // Simulate successful login
+                notification.textContent = "Login successful! Welcome back.";
+                notification.style.background = "var(--success)";
+                notification.style.display = "block";
+                
+                // Hide login buttons and show user menu
+                document.querySelector('.header-actions').style.display = "none";
+                userMenu.style.display = "block";
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    closeModal(loginModal);
+                    document.getElementById('loginEmail').value = "";
+                    document.getElementById('loginPassword').value = "";
+                }, 1500);
+                
+                // Hide notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+            } else {
+                notification.textContent = "Please fill in all fields";
+                notification.style.background = "var(--warning)";
+                notification.style.display = "block";
+                
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+            }
+        });
+        
+        // Signup Functionality
+        submitSignup.addEventListener('click', function() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            if(name && email && password && confirmPassword) {
+                if(password === confirmPassword) {
+                    // Simulate successful signup
+                    notification.textContent = "Account created successfully!";
+                    notification.style.background = "var(--success)";
+                    notification.style.display = "block";
+                    
+                    // Hide signup buttons and show user menu
+                    document.querySelector('.header-actions').style.display = "none";
+                    userMenu.style.display = "block";
+                    
+                    // Set user avatar initials
+                    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    userAvatar.textContent = initials;
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeModal(signupModal);
+                        document.getElementById('signupName').value = "";
+                        document.getElementById('signupEmail').value = "";
+                        document.getElementById('signupPassword').value = "";
+                        document.getElementById('signupConfirmPassword').value = "";
+                    }, 1500);
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 3000);
+                } else {
+                    notification.textContent = "Passwords do not match";
+                    notification.style.background = "var(--warning)";
+                    notification.style.display = "block";
+                    
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 3000);
+                }
+            } else {
+                notification.textContent = "Please fill in all fields";
+                notification.style.background = "var(--warning)";
+                notification.style.display = "block";
+                
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+            }
+        });
+        
+        // User Menu Toggle
+        userAvatar.addEventListener('click', function() {
+            userMenu.classList.toggle('active');
+        });
+        
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userMenu.contains(e.target) && !e.target.classList.contains('user-avatar')) {
+                userMenu.classList.remove('active');
+            }
+        });
+        
+        // Logout Functionality
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            userMenu.style.display = "none";
+            document.querySelector('.header-actions').style.display = "flex";
+            
+            notification.textContent = "You have been logged out";
+            notification.style.background = "var(--warning)";
+            notification.style.display = "block";
+            
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 3000);
+        });
+        
+        // Dashboard Button
+        dashboardBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (userMenu.style.display === "block") {
+                notification.textContent = "Redirecting to your dashboard...";
+                notification.style.background = "var(--primary)";
+                notification.style.display = "block";
+                
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+            } else {
+                notification.textContent = "Please login to access your dashboard";
+                notification.style.background = "var(--warning)";
+                notification.style.display = "block";
+                
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 3000);
+            }
+        });
+        
         // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
@@ -841,30 +1447,6 @@
                     
                     // Close mobile menu if open
                     document.querySelector('nav ul').classList.remove('show');
-                }
-            });
-        });
-        
-        // Add active class to navigation items on scroll
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if(pageYOffset >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if(link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
                 }
             });
         });
